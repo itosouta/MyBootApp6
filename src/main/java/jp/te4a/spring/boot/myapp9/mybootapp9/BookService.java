@@ -24,7 +24,7 @@ public class BookService {
     return bookForm;
     }
     
-      public void delete(Integer id) { bookRepository.delete(id); }
+      public void delete(BookBean id) { bookRepository.delete(id); }
       public List<BookForm> findAll() {
       List<BookBean> beanList = bookRepository.findAll();
       List<BookForm> formList = new ArrayList<BookForm>();
@@ -41,6 +41,11 @@ public class BookService {
       BookForm bookForm = new BookForm();
       BeanUtils.copyProperties(bookBean, bookForm);
       return bookForm;
+      }
+
+      public void create(BookForm form) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'create'");
       }
       }
       
