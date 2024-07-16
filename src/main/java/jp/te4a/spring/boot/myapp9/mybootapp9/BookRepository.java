@@ -4,16 +4,23 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+public interface BookRepository extends JpaRepository<BookBean, Integer>{
+   @Query("SELECT X FROM BookBean X ORDER BY X.title")
+ List<BookBean> findAllOrderByTitle();
+}
 
 @Repository
 public class BookRepository {
-private final ConcurrentMap<Integer, BookBean> bookMap = new 
-ConcurrentHashMap<>();
+private final ConcurrentMap<Integer, BookBean> bookMap = new ConcurrentHashMap<>();
 private int BOOK_ID = 1;
 public int getBookId() {
 return BOOK_ID++;
 }
+
 
 public BookBean create(BookBean bookBean) {
    return bookMap.put(bookBean.getId(), bookBean);
@@ -32,5 +39,5 @@ public BookBean create(BookBean bookBean) {
    public BookBean findOne(Integer id) {
    return bookMap.get(id);
    }
-   }
+}
    
