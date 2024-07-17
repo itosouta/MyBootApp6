@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class BookBean {
  @Id
  @GeneratedValue
@@ -23,5 +22,4 @@ public class BookBean {
  private String writter;
  private String publisher;
  private Integer price;
-
 }

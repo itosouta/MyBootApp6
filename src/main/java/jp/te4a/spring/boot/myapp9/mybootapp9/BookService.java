@@ -10,6 +10,7 @@ public class BookService {
 
  @Autowired
  BookRepository bookRepository;
+
  public BookForm save(BookForm bookForm) {
   BookBean bookBean = new BookBean();
   BeanUtils.copyProperties(bookForm, bookBean);
@@ -17,14 +18,13 @@ public class BookService {
   return bookForm;
  }
 
-   public BookForm update(BookForm bookForm) {
-    BookBean bookBean = new BookBean();
-    BeanUtils.copyProperties(bookForm, bookBean);
-    bookRepository.save(bookBean);
-    return bookForm;
-    }
-    
-      public void delete(BookBean id) { bookRepository.delete(id); }
+ public BookForm update(BookForm bookForm) {
+  BookBean bookBean = new BookBean();
+  BeanUtils.copyProperties(bookForm, bookBean);
+  bookRepository.save(bookBean);
+  return bookForm;
+ }
+/* public void delete(Integer id) { bookRepository.delete(id); }
       public List<BookForm> findAll() {
       List<BookBean> beanList = bookRepository.findAll();
       List<BookForm> formList = new ArrayList<BookForm>();
@@ -41,11 +41,6 @@ public class BookService {
       BookForm bookForm = new BookForm();
       BeanUtils.copyProperties(bookBean, bookForm);
       return bookForm;
-      }
-
-      public void create(BookForm form) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
-      }
-      }
+      }*/
+}
       

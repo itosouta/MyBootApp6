@@ -1,5 +1,4 @@
 package jp.te4a.spring.boot.myapp9.mybootapp9;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,7 @@ bookService.update(form);
 return "redirect:/books";
 }
 @PostMapping(path = "delete")
-String delete(@RequestParam BookBean id) {
+String delete(@RequestParam Integer id) {
 bookService.delete(id);
 return "redirect:/books";
 }
