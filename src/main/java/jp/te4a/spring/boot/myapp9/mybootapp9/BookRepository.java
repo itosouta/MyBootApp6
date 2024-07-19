@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookRepository extends JpaRepository<BookBean, Integer>{
-//public class BookRepository {
-
-   @Query("SELECT X FROM BookBean X ORDER BY X.title")
+@Query("SELECT X FROM BookBean X ORDER BY X.title")
  List<BookBean> findAllOrderByTitle();
- 
-/* private final ConcurrentMap<Integer, BookBean> bookMap = new 
+}
+
+ /* 
+public class BookRepository {
+private final ConcurrentMap<Integer, BookBean> bookMap = new 
 ConcurrentHashMap<>();
 private int BOOK_ID = 1;
 public int getBookId() {
@@ -38,7 +39,7 @@ public BookBean create(BookBean bookBean) {
    }
    public BookBean findOne(Integer id) {
    return bookMap.get(id);
-   }*/
+   }
 
    }
-     
+     */
