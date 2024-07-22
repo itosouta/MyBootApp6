@@ -9,34 +9,53 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
-@Autowired
+  @Autowired
  BookRepository bookRepository;
-     public BookForm save(BookForm bookForm) {
-     BookBean bookBean = new BookBean();
-     BeanUtils.copyProperties(bookForm, bookBean);
-     bookRepository.save(bookBean);
-     return bookForm;
-     }
 
-      public BookForm update(BookForm bookForm) {
-      BookBean bookBean = new BookBean();
-      BeanUtils.copyProperties(bookForm, bookBean);
-      bookRepository.save(bookBean);
-      return bookForm;
-      }  
+ public BookForm create(BookForm bookForm) {
+  BookBean bookBean = new BookBean();
+  BeanUtils.copyProperties(bookForm, bookBean);
+  bookRepository.create(bookBean);
+  return bookForm;
+  }
 
-      public BookForm delete(BookForm formList) {
-      BookBean bookBean = new BookBean();
-      BeanUtils.copyProperties(formList, bookBean);
+public BookForm save(BookForm bookForm) {
+  BookBean bookBean = new BookBean();
+  BeanUtils.copyProperties(bookForm, bookBean);
+  bookRepository.save(bookBean);
+  return bookForm;
+ }
+
+ public BookForm update(BookForm bookForm) {
+  BookBean bookBean = new BookBean();
+  BeanUtils.copyProperties(bookForm, bookBean);
+  bookRepository.save(bookBean);
+  return bookForm;
+ }
+
+ public List<BookForm> findAll() {
+  List<BookBean> beanList = bookRepository.findAll();
+  List<BookForm> formList = new ArrayList<BookForm>();
+  for(BookBean bookBean: beanList) {
+  BookForm bookForm = new BookForm();
+  BeanUtils.copyProperties(bookBean, bookForm);
+  formList.add(bookForm);
+  }
+  return formList;
+  }
+
+ //deleteとfindbyid
+    public void delete(BookBean bookBean) {
       bookRepository.delete(bookBean);
-      return formList;
-      }
+  }
+  
+  public BookForm findById(Integer id) {
+    Optional<BookBean> bookOptional = bookRepository.findById(id);
 
-      public BookForm findById(Integer id) {
-          Optional<BookBean> bookBeanOptional = bookRepository.findById(id);
-          BookBean bookBean = bookBeanOptional.get();
-          BookForm bookForm = new BookForm();
-          BeanUtils.copyProperties(bookBean, bookForm);
-          return bookForm;
-     }
+    BookBean bookBean = bookOptional.get();
+    BookForm bookForm = new BookForm();
+    BeanUtils.copyProperties(bookBean, bookForm);
+    return bookForm;
 }
+}
+      
