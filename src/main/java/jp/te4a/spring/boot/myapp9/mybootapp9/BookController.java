@@ -1,5 +1,5 @@
 package jp.te4a.spring.boot.myapp9.mybootapp9;
-import org.apache.el.stream.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,56 +10,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
-
-
-
-
 @Controller
 @RequestMapping("books")
 public class BookController {
-@Autowired
- BookService bookService;
 
-@ModelAttribute
-BookForm setUpForm() {
-return new BookForm();
-}
+    @Autowired
+    private BookService bookService;
 
+    @ModelAttribute
+    BookForm setUpForm() {
+        return new BookForm();
+    }
 
-@GetMapping
-String list(Model model) {
-model.addAttribute("books", bookService.findAll());
-return "books/list";
-}
-@PostMapping(path="create")
-String create(BookForm form, Model mode) {
-bookService.create(form);
-return "redirect:/books";
-}
+    @GetMapping
+    public String list(Model model) {
+        model.addAttribute("books", bookService.findAll());
+        return "books/list";
+    }
 
-@PostMapping(path = "edit")
-String edit(@RequestParam Integer id, BookForm form) {
-bookService.update(form);
-return "redirect:/books";
-}
+    @PostMapping(path = "create")
+    public String create(BookForm form, Model model) {
+        bookService.save(form);
+        return "redirect:/books";
+    }
 
-@PostMapping(path = "edit", params = "goToTop")
-String goToTop() {
-return "redirect:/books";
-}
+    @PostMapping(path = "edit")
+    public String edit(@RequestParam Integer id, BookForm form) {
+        bookService.update(form);
+        return "redirect:/books";
+    }
 
-//////変更点delete,findbyid
-@PostMapping(path = "edit", params = "form")
-String editForm(@RequestParam Integer id, BookForm form) {
+    @PostMapping(path = "edit", params = "goToTop")
+    public String goToTop() {
+        return "redirect:/books";
+    }
 
-BookForm bookForm = bookService.findById(id);
-BeanUtils.copyProperties(bookForm, form);
-return "books/edit";
-}
+    @PostMapping(path = "edit", params = "form")
+    public String editForm(@RequestParam Integer id, BookForm form) {
+        BookForm bookForm = bookService.findById(id);
+        BeanUtils.copyProperties(bookForm, form);
+        return "books/edit";
+    }
 
-@PostMapping(path = "delete")
-String delete(@RequestParam BookBean bookBean) {
-bookService.delete(bookBean);
-return "redirect:/books";
-}
+    @PostMapping(path = "delete")
+    public String delete(@RequestParam Integer id) {
+        bookService.deleteById(id);
+        return "redirect:/books";
+    }
 }
